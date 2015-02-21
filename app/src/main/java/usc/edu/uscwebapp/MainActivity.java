@@ -60,15 +60,13 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
                         Toast.makeText(getApplicationContext(), "Wrong Credentials!", Toast.LENGTH_SHORT);
                     } else {
                      for (User tag : user) {
-                         sm.createLoginSession(tag.getUserName(),tag.getUserUSCId());
+                         sm.createLoginSession(tag.getUserName(),tag.getUserUSCId(),tag.getFirstName(),tag.getLastName());
                      }
-                     Intent intent = new Intent(this, ShowSchoolListActivity.class);
+                     Intent intent = new Intent(this, ProfileActivity.class);
                      startActivity(intent);
                     }
                 }
-
-
-            }
+    }
 
     public static String getSaltedHash(String password) throws Exception {
         byte[] salt = SecureRandom.getInstance("SHA1PRNG").generateSeed(GIConstants.SALTLEN);

@@ -22,4 +22,6 @@ public class GIConstants {
     // User name (make variable public to access from outside)
     public static final String KEY_NAME = "username";
     public static final String KEY_USCID="password";
+    public static final String KEY_FIRSTNAME="firstname";
+    public static final String KEY_LASTNAME="lastname";
 }

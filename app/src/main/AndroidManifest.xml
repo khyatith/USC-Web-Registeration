@@ -27,14 +27,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ShowSchoolListActivity"
-            android:label="" >
-        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
+        <activity
+            android:name=".DClearanceActivity"
+            android:label="@string/title_activity_dclearance" >
+        </activity>
     </application>
 
 </manifest>

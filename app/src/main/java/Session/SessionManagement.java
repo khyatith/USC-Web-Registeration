@@ -24,26 +24,30 @@ public class SessionManagement {
 
     }
 
-    public void createLoginSession(String username,String USCID){
+    public void createLoginSession(String username,String USCID,String firstname,String lastname){
         // Storing login value as TRUE
         editor.putBoolean(GIConstants.IS_LOGIN, true);
 
         // Storing name in pref
         editor.putString(GIConstants.KEY_NAME, username);
 
-        //Storing password in pref
+        //Storing USCID in pref
         editor.putString(GIConstants.KEY_USCID, USCID);
+
+        //storing firstname and lastname in pref
+        editor.putString(GIConstants.KEY_FIRSTNAME,firstname);
+        editor.putString(GIConstants.KEY_LASTNAME,lastname);
+
 
         editor.commit();
     }
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
         // user name
-
         user.put(GIConstants.KEY_NAME, pref.getString(GIConstants.KEY_NAME, null));
         user.put(GIConstants.KEY_USCID, pref.getString(GIConstants.KEY_USCID, null));
-
-
+        user.put(GIConstants.KEY_FIRSTNAME, pref.getString(GIConstants.KEY_FIRSTNAME, null));
+        user.put(GIConstants.KEY_LASTNAME, pref.getString(GIConstants.KEY_LASTNAME, null));
         // return user
         return user;
     }
