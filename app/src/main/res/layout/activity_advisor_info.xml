@@ -51,12 +51,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="213.740.5353,rozan@usc.edu"
+            android:text="213.740.5353 , rozan@usc.edu"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:textColor="#000"
+            android:textColor="#FF9900"
+            android:textStyle="bold"
             android:layout_below="@+id/tv_advisor_location"/>
         </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_success_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#A80002"
+            android:layout_below="@+id/rl_link"
+            android:textColor="#ffcc00"
+            android:visibility="invisible"/>
         <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"

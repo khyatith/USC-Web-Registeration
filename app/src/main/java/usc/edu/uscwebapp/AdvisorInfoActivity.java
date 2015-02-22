@@ -57,6 +57,8 @@ public class AdvisorInfoActivity extends ActionBarActivity implements OnClickLis
     Button bt_book_advisor_appointment;
     String selectedslot=null;
     String date_month_year=null;
+    Button bt_cancel_dialog;
+    TextView tv_success_message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +73,7 @@ public class AdvisorInfoActivity extends ActionBarActivity implements OnClickLis
         bt_advisor.setOnClickListener(this);
         bt_profile = (Button) findViewById(R.id.bt_profile);
         bt_profile.setOnClickListener(this);
-
-
+        tv_success_message=(TextView)findViewById(R.id.tv_success_message);
         _calendar = Calendar.getInstance(Locale.getDefault());
         month = _calendar.get(Calendar.MONTH) + 1;
         year = _calendar.get(Calendar.YEAR);
@@ -346,41 +347,44 @@ public class AdvisorInfoActivity extends ActionBarActivity implements OnClickLis
 
         @Override
         public void onClick(View view) {
-            date_month_year= (String) view.getTag();
-            //selectedDayMonthYearButton.setText("Selected: " + date_month_year);
-            /*Date parsedDate = dateFormatter.parse(date_month_year);
-            Log.d(tag, "Parsed Date: " + parsedDate.toString());*/
+            date_month_year = (String) view.getTag();
             final Dialog dialog = new Dialog(context);
-
             dialog.setContentView(R.layout.bookappointment_popup);
             dialog.setTitle("Book Advisor Appointment");
-
             WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
-            lp.dimAmount=0.5f;
+            lp.dimAmount = 0.5f;
             dialog.getWindow().setAttributes(lp);
             dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            tv_date_selection=(TextView)dialog.findViewById(R.id.tv_date_selection);
-            sp_time_slot=(Spinner)dialog.findViewById(R.id.sp_time_slot);
-            bt_book_advisor_appointment=(Button)dialog.findViewById(R.id.bt_book_advisor_appointment);
+            tv_date_selection = (TextView) dialog.findViewById(R.id.tv_date_selection);
+            sp_time_slot = (Spinner) dialog.findViewById(R.id.sp_time_slot);
+            bt_book_advisor_appointment = (Button) dialog.findViewById(R.id.bt_book_advisor_appointment);
+            bt_cancel_dialog = (Button) dialog.findViewById(R.id.bt_cancel_dialog);
             dialog.show();
 
-            OnItemSelectedListener slotselected=new OnItemSelectedListener() {
+            OnItemSelectedListener slotselected = new OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedslot=parent.getItemAtPosition(position).toString();
+                    selectedslot = parent.getItemAtPosition(position).toString();
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-
+                    Toast.makeText(context,"Please select a time slot!",Toast.LENGTH_LONG).show();
                 }
             };
             sp_time_slot.setOnItemSelectedListener(slotselected);
-            bt_book_advisor_appointment.setOnClickListener(new View.OnClickListener(){
+            bt_book_advisor_appointment.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context,"An appointment request for the day"+date_month_year +"timeslot"+selectedslot+"has been sent to the advisor. Your confirmation will be sent to you by email",Toast.LENGTH_LONG).show();
+                    //implement ad broadcast receiver
+                    dialog.dismiss();
+                    }
+            });
+            bt_cancel_dialog.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
                 }
             });
         }
