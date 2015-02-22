@@ -112,11 +112,11 @@
             />
 
         <Button
-            android:id="@+id/bt_structure"
+            android:id="@+id/bt_advisor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/tabs_layout"
-            android:text="Structure"
+            android:text="Advisor-Info"
             android:textColor="#fff"
             android:textSize="16sp"
             android:paddingLeft="15dp"

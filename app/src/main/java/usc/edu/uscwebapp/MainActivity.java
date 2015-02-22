@@ -50,14 +50,14 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         Log.d("username",enteredUserName);
             //Validating user input
             if (enteredUserName.matches(" ")) {
-                Toast.makeText(getApplicationContext(), "UserName is blank!", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "UserName is blank!", Toast.LENGTH_SHORT).show();
             } else if (enteredpassword.matches(" ")) {
-                Toast.makeText(getApplicationContext(), "Password is blank!", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "Password is blank!", Toast.LENGTH_SHORT).show();
             } else {
                 List<User> user=db.findUser(enteredUserName, enteredpassword);
 
                  if (user.isEmpty()) {
-                        Toast.makeText(getApplicationContext(), "Wrong Credentials!", Toast.LENGTH_SHORT);
+                        Toast.makeText(getApplicationContext(), "Wrong Credentials!", Toast.LENGTH_SHORT).show();
                     } else {
                      for (User tag : user) {
                          sm.createLoginSession(tag.getUserName(),tag.getUserUSCId(),tag.getFirstName(),tag.getLastName());

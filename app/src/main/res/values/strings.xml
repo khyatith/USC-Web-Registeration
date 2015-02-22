@@ -7,5 +7,14 @@
     <string name="title_activity_show_school_list">ShowSchoolListActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_dclearance">DClearanceActivity</string>
+    <string name="title_activity_course_structure">CourseStructureActivity</string>
+    <string-array name="timeslotvalue">
+        <item >9:00 - 9:30 AM</item>
+        <item >9:30 - 10:00 AM</item>
+        <item >10:00 - 10:30 AM</item>
+        <item >10:30 - 11:00 AM</item>
+        <item >11:00 - 11:30 AM</item>
+        <item >11:30 - 12:00 PM</item>
+    </string-array>
 
 </resources>

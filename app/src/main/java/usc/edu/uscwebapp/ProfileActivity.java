@@ -3,28 +3,24 @@ package usc.edu.uscwebapp;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import Session.SessionManagement;
 import usc.edu.Common.CircularImageView;
 import usc.edu.Common.GIConstants;
-import usc.edu.adapter.ProfileExpandableListAdapter;
 
 
 public class ProfileActivity extends ActionBarActivity implements OnClickListener {
     Button bt_register;
     Button bt_clearance;
-    Button bt_structure;
+    Button bt_advisor;
     Button bt_profile;
     TextView tv_profile_welcome;
     SessionManagement sm;
@@ -51,8 +47,8 @@ public class ProfileActivity extends ActionBarActivity implements OnClickListene
         bt_register.setOnClickListener(this);
         bt_clearance = (Button) findViewById(R.id.bt_clearance);
         bt_clearance.setOnClickListener(this);
-        bt_structure = (Button) findViewById(R.id.bt_structure);
-        bt_structure.setOnClickListener(this);
+        bt_advisor = (Button) findViewById(R.id.bt_advisor);
+        bt_advisor.setOnClickListener(this);
         bt_profile = (Button) findViewById(R.id.bt_profile);
         bt_profile.setOnClickListener(this);
         expandableListView = (ExpandableListView) findViewById(R.id.tv_profilelistview);
@@ -83,8 +79,9 @@ public class ProfileActivity extends ActionBarActivity implements OnClickListene
             case R.id.bt_register:
                 //go to register activity
                 break;
-            case R.id.bt_structure:
-                //go to structure activity
+            case R.id.bt_advisor:
+                Intent structureintent=new Intent(this,AdvisorInfoActivity.class);
+                startActivity(structureintent);
                 break;
         }
     }
