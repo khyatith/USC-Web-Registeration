@@ -1,6 +1,7 @@
 package usc.edu.uscwebapp;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -377,7 +378,7 @@ public class AdvisorInfoActivity extends ActionBarActivity implements OnClickLis
 
                 @Override
                 public void onClick(View v) {
-                    //implement ad broadcast receiver
+                    Toast.makeText(context,"Your appointment request for"+" "+ date_month_year+" "+selectedslot+" "+"has been emailed to the advisor. You will be notified by email on approval!",Toast.LENGTH_LONG).show();
                     dialog.dismiss();
                     }
             });
