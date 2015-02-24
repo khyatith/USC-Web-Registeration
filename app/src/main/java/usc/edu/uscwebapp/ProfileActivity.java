@@ -77,8 +77,7 @@ public class ProfileActivity extends ActionBarActivity implements OnClickListene
                 //go to profile activity
                 break;
             case R.id.bt_register:
-                Intent registerIntent=new Intent(this,chooseSemester.class);
-                startActivity(registerIntent);
+                //go to register activity
                 break;
             case R.id.bt_advisor:
                 Intent structureintent=new Intent(this,AdvisorInfoActivity.class);

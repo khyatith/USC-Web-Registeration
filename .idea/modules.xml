@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/USC-Web-Registeration.iml" filepath="$PROJECT_DIR$/USC-Web-Registeration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/USCWebApp.iml" filepath="$PROJECT_DIR$/USCWebApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
