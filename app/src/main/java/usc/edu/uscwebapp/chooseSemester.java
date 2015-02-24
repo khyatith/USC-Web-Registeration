@@ -1,6 +1,8 @@
 package usc.edu.uscwebapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,7 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -44,6 +49,12 @@ public class chooseSemester extends ActionBarActivity {
     final HashMap<String, ArrayList<String>> expandableListDetail = new  HashMap<String,ArrayList<String>>();
     final ArrayList<String> expandableListTitle = new ArrayList<String>();
     private PopupWindow chooseDepartment;
+    String selectedsem=null;
+    String selectedsemester[];
+    String semintent;
+    String deptCode;
+    String department;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +81,7 @@ public class chooseSemester extends ActionBarActivity {
             InputStream inputStream = null;
             String result = "";
             if(params[1].equals("getSchools")) getSchools=true;
+            else if(params[1].equals("getDepts")) getDepartments=true;
             try {
 
                 // create HttpClient
@@ -90,6 +102,7 @@ public class chooseSemester extends ActionBarActivity {
             } catch (Exception e) {
                 Log.d("InputStream", e.getLocalizedMessage());
             }
+
 
             return result;
         }
@@ -113,13 +126,7 @@ public class chooseSemester extends ActionBarActivity {
                 }
             }
             implementAdapter();
-
-
-
         }
-
-
-
         //Result from doinback obtained as an inputStream , needs to be parsed
         private String convertInputStreamToString(InputStream inputStream) throws IOException {
             BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
@@ -143,12 +150,45 @@ public class chooseSemester extends ActionBarActivity {
         StringBuilder s = new StringBuilder();
         for(int i = 0;i<deptList.length();i++)
         {
-            String department = deptList.getJSONObject(i).getString("SOC_DEPARTMENT_DESCRIPTION");
-            String deptCode = deptList.getJSONObject(i).getString("SOC_DEPARTMENT_CODE");
+            department = deptList.getJSONObject(i).getString("SOC_DEPARTMENT_DESCRIPTION");
+            deptCode = deptList.getJSONObject(i).getString("SOC_DEPARTMENT_CODE");
             schoolCodes.put(department,deptCode);
-            res.add(department);
+            res.add(department+","+deptCode);
         }
-        LayoutInflater inflater = (LayoutInflater) chooseSemester.this
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(chooseSemester.this);
+        LayoutInflater inflater = getLayoutInflater();
+        View convertView = (View) inflater.inflate(R.layout.custom_layout, null);
+        alertDialog.setView(convertView);
+        alertDialog.setTitle("Select Department");
+        final ListView lv = (ListView) convertView.findViewById(R.id.listView1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,res);
+        lv.setAdapter(adapter);
+        alertDialog.show();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               String selectedDepartment[]= lv.getItemAtPosition(position).toString().split(",");
+
+                selectedsemester=selectedsem.split("\\s+");
+                if(selectedsemester[0].trim().equals("Spring")){
+                    semintent="1";
+                }
+                else if(selectedsemester[1].trim().equals("Fall")){
+                    semintent="2";
+                }
+                else{
+                    semintent="3";
+                }
+                Log.d("details to be sent",selectedDepartment[1]+" "+semintent+" "+selectedsemester[1]);
+                Intent sendcourseintent=new Intent(chooseSemester.this,RegisterActivity.class);
+                sendcourseintent.putExtra("dept",selectedDepartment[1]);
+                sendcourseintent.putExtra("semester",semintent);
+                sendcourseintent.putExtra("semesteryear",selectedsemester[1]);
+                startActivity(sendcourseintent);
+
+            }
+        });
+       /* LayoutInflater inflater = (LayoutInflater) chooseSemester.this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.activity_temp_pop_up,
                 (ViewGroup) findViewById(R.id.abc));
@@ -156,12 +196,8 @@ public class chooseSemester extends ActionBarActivity {
 
         chooseDepartment = new PopupWindow(layout, 600, 750, true);
 
-        chooseDepartment.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
-
-
-
-    }
+        chooseDepartment.showAtLocation(layout, Gravity.CENTER, 0, 0);*/
+}
     //ASYNC TASK TO CALL API TO GET THE SCHOOL LIST FOR A PARTICUALR SEMESTER ENDS here
     /*****************************************************************************************/
 
@@ -251,9 +287,6 @@ public class chooseSemester extends ActionBarActivity {
             hm.put(sem,details);
 
         }
-
-
-
         return hm;
     }
 
@@ -276,8 +309,7 @@ public class chooseSemester extends ActionBarActivity {
             @Override
             public void onGroupExpand(int groupPosition) {
 
-                expandableListTitle.get(groupPosition);
-
+             selectedsem=expandableListTitle.get(groupPosition);
             }
         });
 
@@ -299,13 +331,13 @@ public class chooseSemester extends ActionBarActivity {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 // TODO Auto-generated method stub
-                Toast.makeText(
+              /* Toast.makeText(
                         getApplicationContext(),
 
                         schoolCodes.get(expandableListDetail.get(
                                 expandableListTitle.get(groupPosition)).get(
                                 childPosition)), Toast.LENGTH_SHORT)
-                        .show();
+                        .show();*/
                 String apiURL = "http://petri.esd.usc.edu/socAPI/Schools/"+schoolCodes.get(expandableListDetail.get(
                         expandableListTitle.get(groupPosition)).get(
                         childPosition));
@@ -314,138 +346,6 @@ public class chooseSemester extends ActionBarActivity {
             }
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

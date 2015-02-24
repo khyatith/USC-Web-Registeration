@@ -48,6 +48,10 @@
             android:name=".chooseSemester"
             android:label="@string/title_activity_choose_semester" >
         </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/title_activity_register" >
+        </activity>
     </application>
 
 </manifest>

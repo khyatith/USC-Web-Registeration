@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
     public void onClick(View v) {
             String enteredUserName=tv_username.getText().toString();
             String enteredpassword=tv_password.getText().toString();
-        Log.d("username",enteredUserName);
+
             //Validating user input
             if (enteredUserName.matches(" ")) {
                 Toast.makeText(getApplicationContext(), "UserName is blank!", Toast.LENGTH_SHORT).show();

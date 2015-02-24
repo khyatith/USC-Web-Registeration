@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,7 +121,8 @@ public class AdvisorInfoActivity extends ActionBarActivity implements OnClickLis
                 startActivity(profileintent);
                 break;
             case R.id.bt_register:
-                //go to register activity
+                Intent registerintent = new Intent(this, chooseSemester.class);
+                startActivity(registerintent);
                 break;
             case R.id.bt_advisor:
                 Intent structureintent = new Intent(this, AdvisorInfoActivity.class);
