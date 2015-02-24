@@ -42,8 +42,11 @@
             android:name=".DClearanceActivity"
             android:label="@string/title_activity_dclearance" >
         </activity>
+        <activity android:name=".AdvisorInfoActivity" >
+        </activity>
         <activity
-            android:name=".AdvisorInfoActivity" >
+            android:name=".chooseSemester"
+            android:label="@string/title_activity_choose_semester" >
         </activity>
     </application>
 

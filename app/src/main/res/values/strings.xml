@@ -16,5 +16,7 @@
         <item >11:00 - 11:30 AM</item>
         <item >11:30 - 12:00 PM</item>
     </string-array>
+    <string name="title_activity_choose_semester">chooseSemester</string>
+    <string name="DenStudent">DEN Student?</string>
 
 </resources>
