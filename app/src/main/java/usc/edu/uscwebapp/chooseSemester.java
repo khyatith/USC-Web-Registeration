@@ -66,13 +66,7 @@ public class chooseSemester extends ActionBarActivity {
 
         //apapi call 1 made here follow the code here on
         //all defined in different modules
-
-
-
-
-    }
-
-
+     }
     //ASYNC TASK TO CALL API TO GET THE SCHOOL LIST FOR A PARTICUALR SEMESTER
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
 
@@ -188,15 +182,6 @@ public class chooseSemester extends ActionBarActivity {
 
             }
         });
-       /* LayoutInflater inflater = (LayoutInflater) chooseSemester.this
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.activity_temp_pop_up,
-                (ViewGroup) findViewById(R.id.abc));
-
-
-        chooseDepartment = new PopupWindow(layout, 600, 750, true);
-
-        chooseDepartment.showAtLocation(layout, Gravity.CENTER, 0, 0);*/
 }
     //ASYNC TASK TO CALL API TO GET THE SCHOOL LIST FOR A PARTICUALR SEMESTER ENDS here
     /*****************************************************************************************/

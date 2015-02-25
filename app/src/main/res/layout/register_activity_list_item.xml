@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#fff">
+    <TextView
+    android:id="@+id/tv_type"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="#006600"
+    android:layout_alignParentLeft="true"
+    android:text="Lecture"
+    android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/tv_seats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tv_type"
+        android:text="Lecture"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/tv_registered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#A80002"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tv_seats"
+        android:text="Lecture"
+        android:textSize="16sp"/>
+    <Button
+        android:id="@+id/bt_add_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="#fff"
+        android:text="Add"
+        android:textColor="#0000ff"/>
+    <Button
+        android:id="@+id/bt_view_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="#fff"
+        android:text="View Details"
+        android:layout_below="@+id/bt_add_course"
+        android:textColor="#0000ff"/>
+    <ImageButton
+        android:id="@+id/ib_alert_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/alert_triangle_red"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="100dp"
+        />
+</RelativeLayout>
+

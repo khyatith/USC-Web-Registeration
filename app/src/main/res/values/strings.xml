@@ -21,5 +21,6 @@
     <string name="title_activity_choose_semester">chooseSemester</string>
     <string name="DenStudent">DEN Student?</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_course_bin">CourseBinActivity</string>
 
 </resources>

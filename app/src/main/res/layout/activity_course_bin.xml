@@ -22,7 +22,6 @@
             android:paddingTop="10dp"/>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/rl_mainbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFcc00"
@@ -50,12 +49,6 @@
             android:src="@drawable/ic_action"
             android:layout_toLeftOf="@+id/ib_course_calendar"/>
     </RelativeLayout>
-    <ExpandableListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/expandableListView"
-        android:layout_below="@+id/rl_mainbox"/>
-
     <LinearLayout
         android:id="@+id/ll_nav_bar"
         android:layout_width="fill_parent"
@@ -108,3 +101,4 @@
     </LinearLayout>
 
 </RelativeLayout>
+
