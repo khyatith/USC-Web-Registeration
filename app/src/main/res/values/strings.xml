@@ -7,5 +7,6 @@
     <string name="title_activity_show_school_list">ShowSchoolListActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_dclearance">DClearanceActivity</string>
-
+    <string name="title_activity_confirm">ConfirmDclear</string>
+    <string name="default_school">Select School</string>
 </resources>
