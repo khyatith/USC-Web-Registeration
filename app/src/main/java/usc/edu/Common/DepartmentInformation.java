@@ -1,5 +1,7 @@
 package usc.edu.Common;
 
+import java.util.ArrayList;
+
 /**
  * Created by Khyati on 2/23/2015.
  */
@@ -14,7 +16,14 @@ public class DepartmentInformation {
     String diversity_flag;
     String effective_term_code;
     String v_soc_section;
+    private ArrayList<CourseInformation> productList = new ArrayList<CourseInformation>();
 
+    public ArrayList<CourseInformation> getCourseInformation() {
+        return productList;
+    }
+    public void setCourseInformation(ArrayList<CourseInformation> productList) {
+        this.productList = productList;
+    }
     public DepartmentInformation(){
 
     }
@@ -30,7 +39,6 @@ public class DepartmentInformation {
         this.effective_term_code = effective_term_code;
         this.v_soc_section = v_soc_section;
     }
-
     public String getCourse_id() {
         return Course_id;
     }

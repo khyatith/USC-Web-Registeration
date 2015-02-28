@@ -26,9 +26,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import usc.edu.Common.CourseInformation;
 import usc.edu.Common.DepartmentInformation;
 import usc.edu.Common.JSONfunctions;
 import usc.edu.adapter.RegisterExpandableListAdapter;
@@ -54,14 +57,14 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
     String effective_term_code;
     String v_soc_section;
     ArrayList<String> details= new ArrayList<String>();
-    ArrayList<DepartmentInformation> deptinfolist= new ArrayList<DepartmentInformation>();
+    ArrayList<String> deptinfo= new ArrayList<String>();
+    ArrayList<CourseInformation> courseinfolist= new ArrayList<CourseInformation>();
+    ArrayList<CourseInformation> courseinforesult=new ArrayList<CourseInformation>();
     ArrayList<String> res;
-    DepartmentInformation deptinfo;
+    CourseInformation courseinfo;
     Spinner sp_courses;
-    ExpandableListView expandableListView;
-    RegisterExpandableListAdapter expandableListAdapter;
-    final HashMap<String, ArrayList<String>> expandableListDetail = new  HashMap<String,ArrayList<String>>();
-    final ArrayList<String> expandableListTitle = new ArrayList<String>();
+    String CourseURL;
+    CourseInformation course_details;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,16 +78,16 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
         bt_advisor.setOnClickListener(this);
         bt_profile = (Button) findViewById(R.id.bt_profile);
         bt_profile.setOnClickListener(this);
-        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+       // expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
 
-        if(!selectedsem.equals(" ") && !selecteddept.equals(" ") && !selectedyear.equals(" ")) {
+        //if(!selectedsem.equals(" ") && !selecteddept.equals(" ") && !selectedyear.equals(" ")) {
             selectedsem = getIntent().getStringExtra("semester");
             selecteddept = getIntent().getStringExtra("dept");
             selectedyear = getIntent().getStringExtra("semesteryear");
-            DepartmentURL = "http://petri.esd.usc.edu/socAPI/Courses/" + selectedyear + selectedsem + "/" + selecteddept;
+            DepartmentURL = "http://petri.esd.usc.edu/socAPI/Courses/" + selectedyear + selectedsem + "/" +selecteddept;
             Log.d("department URL", DepartmentURL);
             new HttpAsyncTask().execute(DepartmentURL);
-        }
+       // }
 
     }
     private class HttpAsyncTask extends AsyncTask<String, Void, String>{
@@ -120,8 +123,9 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
             try {
                 details=parseJSON(result);
                 PopulateSpinner(details);
-                deptinfolist=parseJSONforList(result);
-                getCourseDetails(deptinfolist);
+                deptinfo=parseJSONforCourseId(result);
+                Log.d("dept info", String.valueOf(deptinfo));
+                new GetCourses().execute(String.valueOf(deptinfo));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -155,45 +159,19 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
             return res;
         }
     }
-        public ArrayList<DepartmentInformation> parseJSONforList(String result) throws JSONException{
+        public ArrayList<String> parseJSONforCourseId(String result) throws JSONException{
             JSONArray arr = new JSONArray(result);
+            res=new ArrayList<String>();
             for(int i=0;i<arr.length();i++){
-                deptinfo=new DepartmentInformation();
-                deptinfo.setCourse_id(arr.getJSONObject(i).getString("COURSE_ID"));
-                deptinfo.setCourse_title(arr.getJSONObject(i).getString("TITLE"));
-                deptinfolist.add(deptinfo);
+                Course_id= arr.getJSONObject(i).getString("COURSE_ID");
+                res.add(Course_id);
             }
-            return deptinfolist;
+            return res;
         }
     private void PopulateSpinner(ArrayList<String> result) throws JSONException{
         sp_courses=(Spinner)findViewById(R.id.sp_courses);
         sp_courses.setAdapter(new ArrayAdapter<String>(RegisterActivity.this,android.R.layout.simple_spinner_dropdown_item,result));
 
-    }
-    private void getCourseDetails(ArrayList<DepartmentInformation> result) throws JSONException{
-        expandableListAdapter = new RegisterExpandableListAdapter(this,result);
-        expandableListView.setAdapter(expandableListAdapter);
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_register, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -217,6 +195,56 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
                 break;
         }
 
+    }
+    private class GetCourses extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... params) {
+            InputStream inputStream = null;
+            String result = " ";
+
+            //DepartmentURL = "http://petri.esd.usc.edu/socAPI/Courses/"+selectedyear+selectedsem+"/"+selecteddept;
+           // for (int i = 0; i < deptinfo.size(); i++) {
+                CourseURL = "http://petri.esd.usc.edu/socAPI/Courses/" + selectedyear + selectedsem + "/2814" ;
+                Log.d("course", CourseURL);
+                JSONArray data=null;
+                return result;
+        }
+        protected void onPostExecute(String result) {
+            try {
+
+                courseinforesult= parseJSON(result);
+                Log.d("courseinforesult",""+courseinforesult);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        private String convertInputStreamToString(InputStream inputStream) throws IOException {
+            BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+            String line = "";
+            String result = "";
+            while((line = bufferedReader.readLine()) != null)
+                result += line;
+
+            inputStream.close();
+            return result;
+
+        }
+        public ArrayList<CourseInformation> parseJSON(String result) throws JSONException {
+            JSONArray arr = new JSONArray(result);
+            for(int i = 0;i<arr.length();i++)
+            {
+                course_details=new CourseInformation();
+                course_details.setMax_units(arr.getJSONObject(i).getString("MAX_UNITS"));
+                courseinfolist.add(course_details);
+               /* deptinfo =new DepartmentInformation();
+                deptinfo.setCourse_id(arr.getJSONObject(i).getString("COURSE_ID"));
+                deptinfo.setCourse_title(arr.getJSONObject(i).getString("TITLE"));*/
+            }
+            return courseinfolist;
+            // Toast.makeText(getBaseContext(), res.toString(), Toast.LENGTH_LONG).show();
+
+        }
     }
 
 }
