@@ -16,4 +16,8 @@
 <color name="journal_entry_listitem_text_color">#003366</color>
 <color name="note_text_disabled">#333333</color>
     <color name="BLACK">#000000</color>
+    <color name="event_color_01">#59dbe0</color>
+    <color name="event_color_02">#f57f68</color>
+    <color name="event_color_03">#87d288</color>
+    <color name="event_color_04">#f8b552</color>
 </resources>

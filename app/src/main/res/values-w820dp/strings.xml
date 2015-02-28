@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="GradeOptions">Grade Options</string>
+    <string name="TRefund">Tution Refund Insurance</string>
+    <string name="Schedule" />
+    <string name="Unschedule" />
+    <string name="delete">Delete</string>
+    <string name="unschedule">Unschedule</string>
+    <string name="Scheduled">Schedule</string>
+</resources>

@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/USC-Web-Registeration.iml" filepath="$PROJECT_DIR$/USC-Web-Registeration.iml" />
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/USCWebApp.iml" filepath="$PROJECT_DIR$/USCWebApp.iml" />
+=======
+>>>>>>> 6749b59bfc925e6e0545d6d08333236d84faf376
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

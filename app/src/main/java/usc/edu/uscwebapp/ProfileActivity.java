@@ -2,11 +2,12 @@ package usc.edu.uscwebapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -23,6 +24,9 @@ import usc.edu.Common.CircularImageView;
 import usc.edu.Common.GIConstants;
 import usc.edu.adapter.ProfileExpandableListAdapter;
 import android.app.ExpandableListActivity;
+import usc.edu.Common.courseInformation;
+import usc.edu.Common.courseList;
+
 
 public class ProfileActivity extends ActionBarActivity implements OnClickListener, ExpandableListView.OnChildClickListener {
     Button bt_register;
@@ -130,9 +134,12 @@ public class ProfileActivity extends ActionBarActivity implements OnClickListene
                 startActivity(intent1);
                 break;
             case R.id.bt_register:
-                Intent registerIntent=new Intent(this,chooseSemester.class);
-                startActivity(registerIntent);
+              //  Intent registerIntent=new Intent(this,chooseSemester.class);
+                //startActivity(registerIntent);
+                Intent registerintent = new Intent(this, CourseBinActivity.class);
+                startActivity(registerintent);
                 break;
+
             case R.id.bt_advisor:
                 Intent structureintent=new Intent(this,AdvisorInfoActivity.class);
                 startActivity(structureintent);

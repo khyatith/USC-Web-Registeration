@@ -34,6 +34,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+
 import usc.edu.adapter.ExpandableListAdapter;
 
 
@@ -46,7 +48,7 @@ public class chooseSemester extends ActionBarActivity {
     boolean getSchools;
     boolean getDepartments;
     ArrayList<String> details= new ArrayList<String>();
-    final HashMap<String, ArrayList<String>> expandableListDetail = new  HashMap<String,ArrayList<String>>();
+    final LinkedHashMap<String, ArrayList<String>> expandableListDetail = new LinkedHashMap<>();
     final ArrayList<String> expandableListTitle = new ArrayList<String>();
     private PopupWindow chooseDepartment;
     String selectedsem=null;
@@ -174,6 +176,7 @@ public class chooseSemester extends ActionBarActivity {
                     semintent="3";
                 }
                 Log.d("details to be sent",selectedDepartment[1]+" "+semintent+" "+selectedsemester[1]);
+                //Intent courseListIntent = new new Intent(chooseSemester.this,CourseBinActivity.class);
                 Intent sendcourseintent=new Intent(chooseSemester.this,RegisterActivity.class);
                 sendcourseintent.putExtra("dept",selectedDepartment[1]);
                 sendcourseintent.putExtra("semester",semintent);
@@ -228,7 +231,7 @@ public class chooseSemester extends ActionBarActivity {
     //
     public HashMap<String,ArrayList<String>> getCourses(ArrayList<String> details)
     {
-        HashMap<String, ArrayList<String>> hm = new HashMap<String,ArrayList<String>>();
+        HashMap<String, ArrayList<String>> hm = new LinkedHashMap<String,ArrayList<String>>();
         Time today = new Time(Time.getCurrentTimezone());
         String sem = "";
         today.setToNow();
@@ -245,9 +248,9 @@ public class chooseSemester extends ActionBarActivity {
             temp1 = details;
             sem = "Fall "+(today.year-1);
             hm.put(sem,temp1);
-
             sem = "Spring "+today.year;
             hm.put(sem,temp);
+
         }
         else if(today.month>=8)
         {
