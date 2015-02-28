@@ -62,7 +62,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
                      for (User tag : user) {
                          sm.createLoginSession(tag.getUserName(),tag.getUserUSCId(),tag.getFirstName(),tag.getLastName());
                      }
-                     Intent intent = new Intent(this, ProfileActivity.class);
+                     Intent intent = new Intent(this, chooseSemester.class);
                      startActivity(intent);
                     }
                 }

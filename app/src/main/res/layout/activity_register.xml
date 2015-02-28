@@ -95,6 +95,18 @@
                 android:layout_below="@+id/tv_seats"
                 android:text="Reg:36"
                 android:textSize="16sp"/>
+            <RatingBar
+                android:id="@+id/rating1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                android:numStars="5"
+                android:stepSize="0.1"
+                android:isIndicator="true"
+                android:layout_below="@+id/tv_registered"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"/>
             <Button
                 android:id="@+id/bt_add_course"
                 android:layout_width="wrap_content"
@@ -152,6 +164,18 @@
                 android:layout_below="@+id/tv_seats1"
                 android:text="Reg:36"
                 android:textSize="16sp"/>
+            <RatingBar
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                android:numStars="5"
+                android:stepSize="0.1"
+                android:isIndicator="true"
+                android:layout_below="@+id/tv_registered1"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"/>
             <Button
                 android:id="@+id/bt_add_course1"
                 android:layout_width="wrap_content"

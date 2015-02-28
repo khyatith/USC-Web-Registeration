@@ -23,8 +23,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import usc.edu.Common.CourseInformation;
 import usc.edu.Common.DepartmentInformation;
 import usc.edu.uscwebapp.R;
 

@@ -136,7 +136,7 @@ public class ProfileActivity extends ActionBarActivity implements OnClickListene
             case R.id.bt_register:
               //  Intent registerIntent=new Intent(this,chooseSemester.class);
                 //startActivity(registerIntent);
-                Intent registerintent = new Intent(this, CourseBinActivity.class);
+                Intent registerintent = new Intent(this, chooseSemester.class);
                 startActivity(registerintent);
                 break;
 

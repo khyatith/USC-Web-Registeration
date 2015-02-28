@@ -16,14 +16,7 @@ public class DepartmentInformation {
     String diversity_flag;
     String effective_term_code;
     String v_soc_section;
-    private ArrayList<CourseInformation> productList = new ArrayList<CourseInformation>();
 
-    public ArrayList<CourseInformation> getCourseInformation() {
-        return productList;
-    }
-    public void setCourseInformation(ArrayList<CourseInformation> productList) {
-        this.productList = productList;
-    }
     public DepartmentInformation(){
 
     }

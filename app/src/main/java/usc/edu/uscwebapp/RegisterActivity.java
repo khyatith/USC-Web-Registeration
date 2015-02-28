@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -37,7 +39,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import usc.edu.Common.CourseInformation;
 
 
 public class RegisterActivity extends ActionBarActivity implements OnClickListener {
@@ -54,22 +55,14 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
     String course_title;
     String min_units;
     String max_units;
-    String total_max_units;
-    String course_description;
-    String diversity_flag;
-    String effective_term_code;
-    String v_soc_section;
-    ArrayList<String> details= new ArrayList<String>();
-    ArrayList<String> deptinfo= new ArrayList<String>();
-    ArrayList<CourseInformation> courseinfolist= new ArrayList<CourseInformation>();
-    ArrayList<CourseInformation> courseinforesult=new ArrayList<CourseInformation>();
-    ArrayList<String> res;
-    HashMap<String,String> courselist=new HashMap<String,String>();
-    CourseInformation courseinfo;
+    ArrayList<String> deptinfo = new ArrayList<String>();
+    public Context context = this;
     Spinner sp_courses;
-    String CourseURL;
-    CourseInformation course_details;
-    private Context context=this;
+    ImageButton ib_course_bin;
+    ArrayList<String> details = new ArrayList<String>();
+    RatingBar rating;
+    RatingBar rating1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,25 +76,54 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
         bt_advisor.setOnClickListener(this);
         bt_profile = (Button) findViewById(R.id.bt_profile);
         bt_profile.setOnClickListener(this);
-       // expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+        ib_course_bin=(ImageButton)findViewById(R.id.ib_course_bin);
+        ib_course_bin.setOnClickListener(this);
+        rating=(RatingBar)findViewById(R.id.rating);
+        rating1=(RatingBar)findViewById(R.id.rating1);
+        rating.setRating(3);
+        rating1.setRating(4);
+
+        // expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
 
         //if(!selectedsem.equals(" ") && !selecteddept.equals(" ") && !selectedyear.equals(" ")) {
-            selectedsem = getIntent().getStringExtra("semester");
-            selecteddept = getIntent().getStringExtra("dept");
-            selectedyear = getIntent().getStringExtra("semesteryear");
-            DepartmentURL = "http://petri.esd.usc.edu/socAPI/Courses/" + selectedyear + selectedsem + "/" +selecteddept;
-            Log.d("department URL", DepartmentURL);
+        selectedsem = getIntent().getStringExtra("semester");
+        selecteddept = getIntent().getStringExtra("dept");
+        selectedyear = getIntent().getStringExtra("semesteryear");
+        DepartmentURL = "http://petri.esd.usc.edu/socAPI/Courses/" + selectedyear + selectedsem + "/" + selecteddept;
+        Log.d("department URL", DepartmentURL);
 
-            new HttpAsyncTask().execute(DepartmentURL);
-       // }
+        new HttpAsyncTask().execute(DepartmentURL);
+        // }
 
-           // new HttpAsyncTask().execute(DepartmentURL);
-        }
-        Intent courseListIntent = new Intent(RegisterActivity.this,CourseBinActivity.class);
-        startActivity(courseListIntent);
-
+        // new HttpAsyncTask().execute(DepartmentURL);
     }
-    private class HttpAsyncTask extends AsyncTask<String, Void, String>{
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ib_course_bin:
+                Intent courseListIntent = new Intent(RegisterActivity.this, CourseBinActivity.class);
+                startActivity(courseListIntent);
+                break;
+            case R.id.bt_clearance:
+                Intent intent = new Intent(this, DClearanceActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.bt_profile:
+                Intent profileintent = new Intent(this, ProfileActivity.class);
+                startActivity(profileintent);
+                break;
+            case R.id.bt_register:
+                Intent registerintent = new Intent(this, chooseSemester.class);
+                startActivity(registerintent);
+            case R.id.bt_advisor:
+                Intent structureintent = new Intent(this, AdvisorInfoActivity.class);
+                startActivity(structureintent);
+                break;
+        }
+    }
+
+    private class HttpAsyncTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
@@ -120,7 +142,7 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
                 inputStream = httpResponse.getEntity().getContent();
 
                 // convert inputstream to string
-                if(inputStream != null)
+                if (inputStream != null)
                     result = convertInputStreamToString(inputStream);
                 else
                     result = "Did not work!";
@@ -130,20 +152,20 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
             }
             return result;
         }
+
         protected void onPostExecute(String result) {
             try {
                 details=parseJSON(result);
                 PopulateSpinner(details);
-                deptinfo=parseJSONforCourseId(result);
+                //deptinfo=parseJSONforCourseId(result);
 
-                Log.d("dept info", String.valueOf(deptinfo));
+                //Log.d("dept info", String.valueOf(deptinfo));
                 //new Getjsonvalues().execute(deptinfo);
 
 
                 class Getjsonvalues extends AsyncTask<String, String, Void> {
 
-                    class sectioninfo
-                    {
+                    class sectioninfo {
                         String secid;
                         String termcode;
                         String courseid;
@@ -159,62 +181,62 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
                         String adddate;
                         String canceldate;
                     }
-                    class courseinfo
-                    {
+
+                    class courseinfo {
                         String courseid;
                         String title;
                         String minunit;
                         String maxunit;
                         String desc;
-                        List<sectioninfo> si=new ArrayList<sectioninfo>();
+                        List<sectioninfo> si = new ArrayList<sectioninfo>();
                     }
+
                     /*LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
                     View layout = inflater.inflate(R.layout.register_activity_group, null);
                     LinearLayout ll=(LinearLayout)layout.findViewById(R.id.samplelayout);
                     TextView listTitle=(TextView)layout.findViewById(R.id.actgroup);*/
                     //HashMap <String,HashMap<String,String>> hm=new HashMap <String,HashMap<String,String>>();
-                    List<courseinfo> displaylist=new ArrayList<courseinfo>();
+                    List<courseinfo> displaylist = new ArrayList<courseinfo>();
 
                     @Override
                     protected Void doInBackground(String... params) {
                         try {
-                            for(int i=0;i<deptinfo.size();i++)
-                            {
-                                CourseURL = "http://petri.esd.usc.edu/socAPI/Courses/" + selectedyear + selectedsem + "/" +deptinfo.get(i);
-                                JSONObject jobj= getValues(CourseURL);
-                                JSONArray jarr=jobj.getJSONArray("V_SOC_SECTION");
-                                Log.d("section id", jobj.getString("TITLE"));
-                                courseinfo cou=new courseinfo();
-                                cou.courseid=jobj.getString("COURSE_ID");
-                                cou.desc=jobj.getString("DESCRIPTION");
-                                cou.maxunit=jobj.getString("MIN_UNITS");
-                                cou.minunit=jobj.getString("MAX_UNITS");
-                                cou.title=jobj.getString("TITLE");
 
-                                List <sectioninfo> ll=new ArrayList<sectioninfo>();
-                                for(int j=0;j<jarr.length();j++)
-                                {
-                                    sectioninfo s=new sectioninfo();
-                                    s.adddate=jarr.getJSONObject(j).getString("ADD_DATE");
-                                    s.begintime=jarr.getJSONObject(j).getString("BEGIN_TIME");
-                                    s.canceldate=jarr.getJSONObject(j).getString("CANCEL_DATE");
-                                    s.courseid=jarr.getJSONObject(j).getString("COURSE_ID");
-                                    s.day=jarr.getJSONObject(j).getString("DAY");
-                                    s.endtime=jarr.getJSONObject(j).getString("END_TIME");
-                                    s.location=jarr.getJSONObject(j).getString("LOCATION");
-                                    s.maxunit=jarr.getJSONObject(j).getString("MAX_UNITS");
-                                    s.minunit=jarr.getJSONObject(j).getString("MIN_UNITS");
-                                    s.type=jarr.getJSONObject(j).getString("TYPE");
-                                    s.termcode=jarr.getJSONObject(j).getString("TERM_CODE");
-                                    s.seats=jarr.getJSONObject(j).getString("SEATS");
-                                    s.instructor=jarr.getJSONObject(j).getString("INSTRUCTOR");
-                                    s.secid=jarr.getJSONObject(j).getString("SECTION_ID");
+                            for (int i = 0; i < deptinfo.size(); i++) {
+                                String CourseURL = "http://petri.esd.usc.edu/socAPI/Courses/" + selectedyear + selectedsem + "/" + deptinfo.get(i);
+                                JSONObject jobj = getValues(CourseURL);
+                                JSONArray jarr = jobj.getJSONArray("V_SOC_SECTION");
+                                Log.d("section id", jobj.getString("TITLE"));
+                                courseinfo cou = new courseinfo();
+                                cou.courseid = jobj.getString("COURSE_ID");
+                                cou.desc = jobj.getString("DESCRIPTION");
+                                cou.maxunit = jobj.getString("MIN_UNITS");
+                                cou.minunit = jobj.getString("MAX_UNITS");
+                                cou.title = jobj.getString("TITLE");
+
+                                List<sectioninfo> ll = new ArrayList<sectioninfo>();
+                                for (int j = 0; j < jarr.length(); j++) {
+                                    sectioninfo s = new sectioninfo();
+                                    s.adddate = jarr.getJSONObject(j).getString("ADD_DATE");
+                                    s.begintime = jarr.getJSONObject(j).getString("BEGIN_TIME");
+                                    s.canceldate = jarr.getJSONObject(j).getString("CANCEL_DATE");
+                                    s.courseid = jarr.getJSONObject(j).getString("COURSE_ID");
+                                    s.day = jarr.getJSONObject(j).getString("DAY");
+                                    s.endtime = jarr.getJSONObject(j).getString("END_TIME");
+                                    s.location = jarr.getJSONObject(j).getString("LOCATION");
+                                    s.maxunit = jarr.getJSONObject(j).getString("MAX_UNITS");
+                                    s.minunit = jarr.getJSONObject(j).getString("MIN_UNITS");
+                                    s.type = jarr.getJSONObject(j).getString("TYPE");
+                                    s.termcode = jarr.getJSONObject(j).getString("TERM_CODE");
+                                    s.seats = jarr.getJSONObject(j).getString("SEATS");
+                                    s.instructor = jarr.getJSONObject(j).getString("INSTRUCTOR");
+                                    s.secid = jarr.getJSONObject(j).getString("SECTION_ID");
                                     ll.add(s);
                                 }
 
-                                cou.si=ll;
+                                cou.si = ll;
                                 displaylist.add(cou);
-                          //      Log.d("Ashwin",displaylist.toString());
+                                //      Log.d("Ashwin",displaylist.toString());
                             /*    HashMap<String,String> innermap=new HashMap<String,String>();
                                 innermap.put("COURSE_ID","");
                                 innermap.put("SIS_COURSE_ID","");
@@ -238,15 +260,13 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
                                 innermap.put("DAY","");
 */
                                 //TextView tv = null;
-                              //  tv = new TextView();
-                               // tv.setId("Course"+i);
+                                //  tv = new TextView();
+                                // tv.setId("Course"+i);
 
                             }
 
-                        }
-                        catch(Exception e)
-                        {
-                            Log.d("excep id",e.toString());
+                        } catch (Exception e) {
+                            Log.d("excep id", e.toString());
                         }
 
                         return null;
@@ -255,16 +275,16 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
                     @Override
                     protected void onPostExecute(Void aVoid) {
                         super.onPostExecute(aVoid);
-                       try {
-                           LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
-                           View layout = inflater.inflate(R.layout.register_activity_group, null);
-                           LinearLayout ll=(LinearLayout)layout.findViewById(R.id.samplelayout);
-                           TextView listTitle=(TextView)layout.findViewById(R.id.actgroup);
-                            String s="App"+displaylist.size();
-                            Log.d("Entered",s );
+                        try {
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+                            View layout = inflater.inflate(R.layout.register_activity_group, null);
+                            LinearLayout ll = (LinearLayout) layout.findViewById(R.id.samplelayout);
+                            TextView listTitle = (TextView) layout.findViewById(R.id.actgroup);
+                            String s = "App" + displaylist.size();
+                            Log.d("Entered", s);
                             //listTitle=(TextView)findViewById(R.id.actgroup);
 
-                           for (int i = 0; i < displaylist.size(); i++) {
+                            for (int i = 0; i < displaylist.size(); i++) {
                                 listTitle.setText("Apple");
                             }
                         } catch (Exception e) {
@@ -272,21 +292,20 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
                         }
                     }
 
-                };
-            Log.d("hello","hello");
-            Getjsonvalues jj=new Getjsonvalues();
+                }
+                ;
+                Log.d("hello", "hello");
+                Getjsonvalues jj = new Getjsonvalues();
                 jj.execute(String.valueOf(deptinfo));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        public JSONObject getValues(String urlvalue)
-        {
-            JSONObject schoolnamearray=null;
+
+        public JSONObject getValues(String urlvalue) {
+            JSONObject schoolnamearray = null;
             // errorstring="";
-            try
-            {
+            try {
                 String url = Uri
                         .parse(urlvalue)
                         .toString();
@@ -297,7 +316,7 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
                 HttpResponse response;
                 HttpClient myClient = new DefaultHttpClient();
                 HttpPost myConnection = new HttpPost(uri);
-                myConnection.setHeader("Content-type","application/json");
+                myConnection.setHeader("Content-type", "application/json");
 
 
                 response = myClient.execute(myConnection);
@@ -306,48 +325,48 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
                 //	mEdit1.append(str);
 
 
-                schoolnamearray=new JSONObject(str);
+                schoolnamearray = new JSONObject(str);
 
                 //  TextView txtrank = (TextView) findViewById(R.id.rank);
                 //  txtrank.setText("Rank : "+str);
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 //TextView txtrank = (TextView) findViewById(R.id.rank);
                 //txtrank.setText("Rank : "+e.toString());
             }
             return schoolnamearray;
         }
+
         private String convertInputStreamToString(InputStream inputStream) throws IOException {
-            BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
             String result = "";
-            while((line = bufferedReader.readLine()) != null)
+            while ((line = bufferedReader.readLine()) != null)
                 result += line;
 
             inputStream.close();
             return result;
 
         }
-        public HashMap parseJSONforCourseURL(String URL) throws  JSONException{
+
+        public HashMap parseJSONforCourseURL(String URL) throws JSONException {
             JSONArray arr = new JSONArray(URL);
-            HashMap<String, String> CourseMap=new HashMap<String,String>();
-            for(int i=0;i<arr.length();i++){
-                String ctitle=arr.getJSONObject(i).getString("TITLE");
-                CourseMap.put("title",ctitle);
+            HashMap<String, String> CourseMap = new HashMap<String, String>();
+            for (int i = 0; i < arr.length(); i++) {
+                String ctitle = arr.getJSONObject(i).getString("TITLE");
+                CourseMap.put("title", ctitle);
             }
-            Log.d("map value",CourseMap.toString());
+            Log.d("map value", CourseMap.toString());
             return CourseMap;
         }
+
         public ArrayList<String> parseJSON(String result) throws JSONException {
             JSONArray arr = new JSONArray(result);
-            res = new ArrayList<String>();
+            ArrayList<String> res = new ArrayList<String>();
             StringBuilder s = new StringBuilder();
-            for(int i = 0;i<arr.length();i++)
-            {
-                Course_id= arr.getJSONObject(i).getString("COURSE_ID");
-                course_title= arr.getJSONObject(i).getString("TITLE");
-                res.add(Course_id+" "+course_title);
+            for (int i = 0; i < arr.length(); i++) {
+                Course_id = arr.getJSONObject(i).getString("COURSE_ID");
+                course_title = arr.getJSONObject(i).getString("TITLE");
+                res.add(Course_id + " " + course_title);
                /* deptinfo =new DepartmentInformation();
                 deptinfo.setCourse_id(arr.getJSONObject(i).getString("COURSE_ID"));
                 deptinfo.setCourse_title(arr.getJSONObject(i).getString("TITLE"));*/
@@ -356,44 +375,22 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
             // Toast.makeText(getBaseContext(), res.toString(), Toast.LENGTH_LONG).show();
             return res;
         }
-    }
-        public ArrayList<String> parseJSONforCourseId(String result) throws JSONException{
+
+        public ArrayList<String> parseJSONforCourseId(String result) throws JSONException {
             JSONArray arr = new JSONArray(result);
-            res=new ArrayList<String>();
-            for(int i=0;i<arr.length();i++){
-                Course_id= arr.getJSONObject(i).getString("COURSE_ID");
+            ArrayList<String> res = new ArrayList<String>();
+            for (int i = 0; i < arr.length(); i++) {
+                Course_id = arr.getJSONObject(i).getString("COURSE_ID");
                 res.add(Course_id);
             }
             return res;
         }
-    private void PopulateSpinner(ArrayList<String> result) throws JSONException{
-        sp_courses=(Spinner)findViewById(R.id.sp_courses);
-        sp_courses.setAdapter(new ArrayAdapter<String>(RegisterActivity.this,android.R.layout.simple_spinner_dropdown_item,result));
 
-    }
+        private void PopulateSpinner(ArrayList<String> result) throws JSONException {
+            sp_courses = (Spinner) findViewById(R.id.sp_courses);
+            sp_courses.setAdapter(new ArrayAdapter<String>(RegisterActivity.this, android.R.layout.simple_spinner_dropdown_item, result));
 
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.bt_clearance:
-                Intent intent = new Intent(this, DClearanceActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.bt_profile:
-                Intent profileintent = new Intent(this, ProfileActivity.class);
-                startActivity(profileintent);
-                break;
-            case R.id.bt_register:
-                Intent registerintent = new Intent(this, chooseSemester.class);
-                startActivity(registerintent);
-
-            case R.id.bt_advisor:
-                Intent structureintent = new Intent(this, AdvisorInfoActivity.class);
-                startActivity(structureintent);
-                break;
         }
-
-    }
     /*private class GetCourses extends AsyncTask<String, Void, String>{
 
         @Override
@@ -445,4 +442,5 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
         }
     }*/
 
+    }
 }
