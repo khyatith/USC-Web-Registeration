@@ -96,10 +96,38 @@ public class DClearanceActivity extends Activity implements OnClickListener {
         jvalues.execute();
         bt_signin=(Button)findViewById(R.id.bt_submit);
         bt_signin.setOnClickListener(this);
-
+        Button bt_clearance, bt_profile,bt_register, bt_structure;
+        bt_clearance=(Button)findViewById(R.id.bt_clearance);
+        bt_profile=(Button)findViewById(R.id.bt_profile);
+        bt_register=(Button)findViewById(R.id.bt_register);
+        bt_structure=(Button)findViewById(R.id.bt_structure);
+        bt_clearance.setOnClickListener(this);
+        bt_profile.setOnClickListener(this);
+        bt_register.setOnClickListener(this);
+        bt_structure.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
+
+            switch (v.getId()){
+                case R.id.bt_clearance:
+                    Intent intent=new Intent(this,DClearanceActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.bt_profile:
+                    Intent intent1=new Intent(this, ProfileActivity.class);
+                    startActivity(intent1);
+
+                    break;
+                case R.id.bt_register:
+                    //go to register activity
+                    break;
+                case R.id.bt_structure:
+                    //go to structure activity
+                    break;
+            }
+
+        
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 context);
 

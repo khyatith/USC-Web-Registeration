@@ -75,7 +75,7 @@
             android:layout_marginTop="2dp"/>
     </RelativeLayout>
     <ExpandableListView
-        android:id="@+id/tv_profilelistview"
+        android:id="@+id/lv_profilelistview"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
