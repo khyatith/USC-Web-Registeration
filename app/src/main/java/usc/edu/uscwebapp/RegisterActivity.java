@@ -95,6 +95,11 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
             new HttpAsyncTask().execute(DepartmentURL);
        // }
 
+           // new HttpAsyncTask().execute(DepartmentURL);
+        }
+        Intent courseListIntent = new Intent(RegisterActivity.this,CourseBinActivity.class);
+        startActivity(courseListIntent);
+
     }
     private class HttpAsyncTask extends AsyncTask<String, Void, String>{
 
@@ -381,7 +386,7 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
             case R.id.bt_register:
                 Intent registerintent = new Intent(this, chooseSemester.class);
                 startActivity(registerintent);
-                break;
+
             case R.id.bt_advisor:
                 Intent structureintent = new Intent(this, AdvisorInfoActivity.class);
                 startActivity(structureintent);
