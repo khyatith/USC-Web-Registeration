@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import usc.edu.Common.GIConstants;
 import usc.edu.adapter.ProfileExpandableListAdapter;
 import android.app.ExpandableListActivity;
 
-public class ProfileActivity extends ActionBarActivity implements OnClickListener{
+public class ProfileActivity extends ActionBarActivity implements OnClickListener, ExpandableListView.OnChildClickListener {
     Button bt_register;
     Button bt_clearance;
     Button bt_advisor;
@@ -43,7 +44,8 @@ public class ProfileActivity extends ActionBarActivity implements OnClickListene
     HashMap expandableListDetail;
     private ArrayList<String> parentItems = new ArrayList<String>();
     private ArrayList<Object> childItems = new ArrayList<Object>();
-
+    private Context context=this;
+    private RatingBar mrating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +62,21 @@ public class ProfileActivity extends ActionBarActivity implements OnClickListene
         bt_advisor.setOnClickListener(this);
         bt_profile = (Button) findViewById(R.id.bt_profile);
         bt_profile.setOnClickListener(this);
-        expandableListView = (ExpandableListView) findViewById(R.id.lv_profilelistview);
+        ExpandableListView expandableList = (ExpandableListView) findViewById(R.id.list);
+        mrating=(RatingBar)findViewById(R.id.rating);
 
         if (sm.isLoggedIn()) {
             get_pref = sm.getUserDetails();
             logged_in_first_name = get_pref.get(GIConstants.KEY_FIRSTNAME);
             logged_in_last_name = get_pref.get(GIConstants.KEY_LASTNAME);
             tv_profile_welcome.setText("Hi," + " " + logged_in_first_name + " " + logged_in_last_name);
+            mrating.setRating(3);
             setGroupParents();
             setChildData();
-            ProfileExpandableListAdapter adapter = new ProfileExpandableListAdapter(parentItems, childItems);
+            /*ProfileExpandableListAdapter adapter = new ProfileExpandableListAdapter(parentItems, childItems);
             adapter.setInflater((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE), this);
-            expandableListView.setAdapter(adapter);
-            //expandableListView.setOnChildClickListener(this);
+            expandableList.setAdapter(adapter);
+            expandableList.setOnChildClickListener(this);*/
 
         } else {
             Intent intent = new Intent(this, MainActivity.class);
@@ -134,5 +138,10 @@ public class ProfileActivity extends ActionBarActivity implements OnClickListene
                 startActivity(structureintent);
                 break;
         }
+    }
+
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        return false;
     }
 }

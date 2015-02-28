@@ -120,10 +120,13 @@ public class DClearanceActivity extends Activity implements OnClickListener {
 
                     break;
                 case R.id.bt_register:
-                    //go to register activity
+                    Intent registerintent = new Intent(this, chooseSemester.class);
+                    startActivity(registerintent);
                     break;
                 case R.id.bt_structure:
                     //go to structure activity
+                    Intent structureintent = new Intent(this, AdvisorInfoActivity.class);
+                    startActivity(structureintent);
                     break;
             }
 

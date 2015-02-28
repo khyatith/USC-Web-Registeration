@@ -33,7 +33,7 @@
             android:id="@+id/circularviewimage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/usctrojan"
+            android:src="@drawable/studentpic"
             app:border="true"
             app:border_color="#cccccc"
             app:border_width="4dp"
@@ -73,15 +73,28 @@
             android:layout_below="@+id/tv_degreename"
             android:layout_marginBottom="2dp"
             android:layout_marginTop="2dp"/>
+        <RatingBar
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/ratingBarStyleSmall"
+            android:numStars="5"
+            android:stepSize="0.1"
+            android:isIndicator="true"
+            android:layout_below="@+id/tv_degreetitle"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"/>
     </RelativeLayout>
     <ExpandableListView
-        android:id="@+id/lv_profilelistview"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-        android:divider="#FFCC00"
-        android:dividerHeight="0.5dp"
-        android:layout_below="@+id/rl_profilepic"/>
+    android:id="@+id/list"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:groupIndicator="@null"
+    android:layout_below="@+id/rl_profilepic"
+    android:divider="#FFCC00"
+    android:dividerHeight="0.5dp"/>
+
     <LinearLayout
         android:id="@+id/ll_nav_bar"
         android:layout_width="fill_parent"

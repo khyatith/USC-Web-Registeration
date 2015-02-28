@@ -1,12 +1,16 @@
 package usc.edu.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,17 +26,19 @@ public class ProfileExpandableListAdapter extends BaseExpandableListAdapter {
     private ArrayList<Object> childtems;
     private LayoutInflater inflater;
     private ArrayList<String> parentItems, child;
+    Context context;
 
     public ProfileExpandableListAdapter(ArrayList<String> parents, ArrayList<Object> childern) {
         this.parentItems = parents;
         this.childtems = childern;
+        this.context=context;
     }
     public void setInflater(LayoutInflater inflater, Activity activity) {
         this.inflater = inflater;
         this.activity = activity;
     }
 
-    public static HashMap getData() {
+   /* public static HashMap getData() {
         HashMap expandableListDetail = new HashMap();
 
         List technology = new ArrayList();
@@ -52,7 +58,7 @@ public class ProfileExpandableListAdapter extends BaseExpandableListAdapter {
         expandableListDetail.put("TECHNOLOGY NEWS", technology);
         expandableListDetail.put("ENTERTAINMENT NEWS", entertainment);
         return expandableListDetail;
-    }
+    }*/
 
     @Override
     public int getGroupCount() {
@@ -61,12 +67,14 @@ public class ProfileExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return 0;
+        return ((ArrayList<String>) childtems.get(groupPosition)).size();
+
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return null;
+        return parentItems.size();
+
     }
 
     @Override
@@ -91,7 +99,15 @@ public class ProfileExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        return null;
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.list_group, null);
+
+        }
+        TextView listTitle=(TextView)convertView.findViewById(R.id.listTitle);
+        listTitle.setText(parentItems.get(groupPosition));
+       // listTitle.setChecked(isExpanded);
+        return convertView;
+
     }
 
     @Override
@@ -99,9 +115,9 @@ public class ProfileExpandableListAdapter extends BaseExpandableListAdapter {
         child = (ArrayList<String>) childtems.get(groupPosition);
         TextView textView = null;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.list_group, null);
+            convertView = inflater.inflate(R.layout.list_item, null);
         }
-        textView = (TextView) convertView.findViewById(R.id.listTitle);
+        textView = (TextView) convertView.findViewById(R.id.expandedListItem);
         textView.setText(child.get(childPosition));
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
