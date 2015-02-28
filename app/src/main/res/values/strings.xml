@@ -22,5 +22,6 @@
     <string name="DenStudent">DEN Student?</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_course_bin">CourseBinActivity</string>
-
+    <string name="title_activity_confirm">ConfirmDclear</string>
+    <string name="default_school">Select School</string>
 </resources>

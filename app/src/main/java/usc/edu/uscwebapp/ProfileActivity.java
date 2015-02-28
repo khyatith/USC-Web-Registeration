@@ -1,8 +1,12 @@
 package usc.edu.uscwebapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -10,14 +14,16 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import Session.SessionManagement;
 import usc.edu.Common.CircularImageView;
 import usc.edu.Common.GIConstants;
+import usc.edu.adapter.ProfileExpandableListAdapter;
+import android.app.ExpandableListActivity;
 
-
-public class ProfileActivity extends ActionBarActivity implements OnClickListener {
+public class ProfileActivity extends ActionBarActivity implements OnClickListener{
     Button bt_register;
     Button bt_clearance;
     Button bt_advisor;
@@ -35,6 +41,9 @@ public class ProfileActivity extends ActionBarActivity implements OnClickListene
     ExpandableListAdapter expandableListAdapter;
     List expandableListTitle;
     HashMap expandableListDetail;
+    private ArrayList<String> parentItems = new ArrayList<String>();
+    private ArrayList<Object> childItems = new ArrayList<Object>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,21 +60,60 @@ public class ProfileActivity extends ActionBarActivity implements OnClickListene
         bt_advisor.setOnClickListener(this);
         bt_profile = (Button) findViewById(R.id.bt_profile);
         bt_profile.setOnClickListener(this);
-        expandableListView = (ExpandableListView) findViewById(R.id.tv_profilelistview);
+        expandableListView = (ExpandableListView) findViewById(R.id.lv_profilelistview);
 
         if (sm.isLoggedIn()) {
             get_pref = sm.getUserDetails();
             logged_in_first_name = get_pref.get(GIConstants.KEY_FIRSTNAME);
             logged_in_last_name = get_pref.get(GIConstants.KEY_LASTNAME);
             tv_profile_welcome.setText("Hi," + " " + logged_in_first_name + " " + logged_in_last_name);
+            setGroupParents();
+            setChildData();
+            ProfileExpandableListAdapter adapter = new ProfileExpandableListAdapter(parentItems, childItems);
+            adapter.setInflater((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE), this);
+            expandableListView.setAdapter(adapter);
+            //expandableListView.setOnChildClickListener(this);
 
-        }
-        else{
-            Intent intent=new Intent(this,MainActivity.class);
+        } else {
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
-
     }
+        public void setGroupParents() {
+        parentItems.add("Android");
+        parentItems.add("Core Java");
+        parentItems.add("Desktop Java");
+        parentItems.add("Enterprise Java");
+    }
+        public void setChildData() {
+            ArrayList<String> child = new ArrayList<String>();
+            child.add("Core");
+            child.add("Games");
+            childItems.add(child);
+            child = new ArrayList<String>();
+            child.add("Apache");
+            child.add("Applet");
+            child.add("AspectJ");
+            child.add("Beans");
+            child.add("Crypto");
+            childItems.add(child);
+            child = new ArrayList<String>();
+            child.add("Accessibility");
+            child.add("AWT");
+            child.add("ImageIO");
+            child.add("Print");
+
+             childItems.add(child);
+            child = new ArrayList<String>();
+            child.add("EJB3");
+            child.add("GWT");
+            child.add("Hibernate");
+            child.add("JSP");
+            childItems.add(child);
+        }
+
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -74,7 +122,8 @@ public class ProfileActivity extends ActionBarActivity implements OnClickListene
                 startActivity(intent);
                 break;
             case R.id.bt_profile:
-                //go to profile activity
+                Intent intent1=new Intent(this,ProfileActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.bt_register:
                 Intent registerIntent=new Intent(this,chooseSemester.class);
