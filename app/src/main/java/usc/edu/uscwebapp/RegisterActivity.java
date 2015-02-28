@@ -91,6 +91,7 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
             selectedyear = getIntent().getStringExtra("semesteryear");
             DepartmentURL = "http://petri.esd.usc.edu/socAPI/Courses/" + selectedyear + selectedsem + "/" +selecteddept;
             Log.d("department URL", DepartmentURL);
+
             new HttpAsyncTask().execute(DepartmentURL);
        // }
 
@@ -162,10 +163,10 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
                         String desc;
                         List<sectioninfo> si=new ArrayList<sectioninfo>();
                     }
-                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+                    /*LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
                     View layout = inflater.inflate(R.layout.register_activity_group, null);
-                    LinearLayout ll=(LinearLayout)findViewById(R.id.samplelayout);
-                    TextView listTitle=(TextView)findViewById(R.id.actgroup);
+                    LinearLayout ll=(LinearLayout)layout.findViewById(R.id.samplelayout);
+                    TextView listTitle=(TextView)layout.findViewById(R.id.actgroup);*/
                     //HashMap <String,HashMap<String,String>> hm=new HashMap <String,HashMap<String,String>>();
                     List<courseinfo> displaylist=new ArrayList<courseinfo>();
 
@@ -250,9 +251,13 @@ public class RegisterActivity extends ActionBarActivity implements OnClickListen
                     protected void onPostExecute(Void aVoid) {
                         super.onPostExecute(aVoid);
                        try {
+                           LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+                           View layout = inflater.inflate(R.layout.register_activity_group, null);
+                           LinearLayout ll=(LinearLayout)layout.findViewById(R.id.samplelayout);
+                           TextView listTitle=(TextView)layout.findViewById(R.id.actgroup);
                             String s="App"+displaylist.size();
                             Log.d("Entered",s );
-                            TextView listTitle=(TextView)findViewById(R.id.actgroup);
+                            //listTitle=(TextView)findViewById(R.id.actgroup);
 
                            for (int i = 0; i < displaylist.size(); i++) {
                                 listTitle.setText("Apple");
