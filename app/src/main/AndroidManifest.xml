@@ -56,6 +56,10 @@
             android:name=".CourseBinActivity"
             android:label="@string/title_activity_course_bin" >
         </activity>
+        <activity
+            android:name=".myCourseCalenderActivity"
+            android:label="@string/title_activity_my_course_calender" >
+        </activity>
     </application>
 
 </manifest>

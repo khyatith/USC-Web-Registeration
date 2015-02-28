@@ -18,9 +18,31 @@
         <item>11:30 - 12:00 PM</item>
     </string-array>
 
+    <string-array name="gradeOptions">
+        <item>Grade Options</item>
+        <item>Letter Grade</item>
+        <item>Audit</item>
+        <item>Pass/No Pass</item>
+    </string-array>
+
     <string name="title_activity_choose_semester">chooseSemester</string>
     <string name="DenStudent">DEN Student?</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_course_bin">CourseBinActivity</string>
+    <string name="register">Register</string>
+    <string name="schedule">Schedule</string>
+    <string name="remove">Remove</string>
+    <string name="GradeOptions">Grade Options</string>
+    <string name="TRefund">Tution Refund Insurance</string>
+    <string name="Schedule" />
+    <string name="Unschedule" />
+    <string name="delete">Delete</string>
+    <string name="unschedule">Unschedule</string>
+    <string name="Scheduled">Schedule</string>
+    <string name="title_activity_my_course_calender">myCourseCalenderActivity</string>
+    <string name="action_today">Go to today</string>
+    <string name="action_day_view">Day view</string>
+    <string name="action_three_day_view">3 day view</string>
+    <string name="action_week_view">Week view</string>
 
 </resources>

@@ -1,8 +1,9 @@
 package usc.edu.uscwebapp;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -10,11 +11,14 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import Session.SessionManagement;
 import usc.edu.Common.CircularImageView;
 import usc.edu.Common.GIConstants;
+import usc.edu.Common.courseInformation;
+import usc.edu.Common.courseList;
 
 
 public class ProfileActivity extends ActionBarActivity implements OnClickListener {
@@ -77,9 +81,19 @@ public class ProfileActivity extends ActionBarActivity implements OnClickListene
                 //go to profile activity
                 break;
             case R.id.bt_register:
-                Intent registerIntent=new Intent(this,chooseSemester.class);
-                startActivity(registerIntent);
+              //  Intent registerIntent=new Intent(this,chooseSemester.class);
+                //startActivity(registerIntent);
+                Intent registerintent = new Intent(this, CourseBinActivity.class);
+                courseList courses = new courseList();
+                courseInformation c = new courseInformation("a","a","a","a","a");
+                courses.add(c);
+                Log.d("courses", courses.get(0).courseName);
+                Bundle b = new Bundle();
+                b.putParcelable("Subjects",courses);
+                registerintent.putExtras(b);
+                startActivity(registerintent);
                 break;
+
             case R.id.bt_advisor:
                 Intent structureintent=new Intent(this,AdvisorInfoActivity.class);
                 startActivity(structureintent);
